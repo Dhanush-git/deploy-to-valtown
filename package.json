@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "build": "npx ncc build src/main.ts"
+    "build": "npx ncc build src/index.ts",
+    "dev": "npm run build && node --env-file=.env ./dist/index.js",
+    "pre-commit": "npm run build"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.38.3",
