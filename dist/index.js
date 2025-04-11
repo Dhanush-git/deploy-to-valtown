@@ -5736,6 +5736,10 @@ exports.main = main;
 const sdk_1 = __nccwpck_require__(325);
 const fs = __nccwpck_require__(9896);
 const path = __nccwpck_require__(6928);
+if (!process.env.VAL_TOWN_API_KEY) {
+    console.error("VAL_TOWN_API_KEY is not set");
+    process.exit(1);
+}
 const valTown = new sdk_1.default({
     bearerToken: process.env.VAL_TOWN_API_KEY,
 });
