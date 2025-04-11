@@ -12,7 +12,7 @@ const valTown = new ValTown({
 });
 
 try {
-  const configPath = path.join(process.env.GITHUB_WORKSPACE, "valtown.json");
+  const configPath = path.join("./", "valtown.json");
   const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
   console.log(config);
 } catch (error) {
