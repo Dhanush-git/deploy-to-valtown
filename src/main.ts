@@ -2,6 +2,11 @@ import ValTown from "@valtown/sdk";
 import * as fs from "fs";
 import * as path from "path";
 
+if (!process.env.VAL_TOWN_API_KEY) {
+  console.error("VAL_TOWN_API_KEY is not set");
+  process.exit(1);
+}
+
 const valTown = new ValTown({
   bearerToken: process.env.VAL_TOWN_API_KEY,
 });
