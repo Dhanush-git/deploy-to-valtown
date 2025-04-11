@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "npx ncc build src/main.ts"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.3",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@valtown/sdk": "^0.38.3"
+  }
+}

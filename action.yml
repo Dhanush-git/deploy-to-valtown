@@ -1,0 +1,11 @@
+name: "Deploy to Valtown"
+description: "Deploy to Valtown"
+
+inputs:
+  VAL_TOWN_API_KEY:
+    description: "Valtown API Key"
+    required: true
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
