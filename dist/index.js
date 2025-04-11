@@ -5734,9 +5734,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.main = main;
 const sdk_1 = __nccwpck_require__(325);
+const fs = __nccwpck_require__(9896);
+const path = __nccwpck_require__(6928);
 const valTown = new sdk_1.default({
     bearerToken: process.env.VAL_TOWN_API_KEY,
 });
+try {
+    const configPath = path.join(process.env.GITHUB_WORKSPACE, "valtown.json");
+    const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
+    console.log(config);
+}
+catch (error) {
+    console.error(error);
+    process.exit(1);
+}
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const me = yield valTown.me.profile.retrieve();
