@@ -5740,7 +5740,6 @@ if (!process.env.VAL_TOWN_API_KEY) {
     console.error("VAL_TOWN_API_KEY is not set");
     process.exit(1);
 }
-console.log(process.env.VAL_TOWN_API_KEY);
 const valTown = new sdk_1.default({
     bearerToken: process.env.VAL_TOWN_API_KEY,
 });

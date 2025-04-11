@@ -9,6 +9,3 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./
-        env:
-          VAL_TOWN_API_KEY: ${{ secrets.VAL_TOWN_API_KEY }}
-          GITHUB_WORKSPACE: ${{ github.workspace }}
