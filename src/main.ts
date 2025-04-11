@@ -7,6 +7,8 @@ if (!process.env.VAL_TOWN_API_KEY) {
   process.exit(1);
 }
 
+console.log(process.env.VAL_TOWN_API_KEY);
+
 const valTown = new ValTown({
   bearerToken: process.env.VAL_TOWN_API_KEY,
 });
