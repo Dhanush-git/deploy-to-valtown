@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "ValTown Config",
+  "title": "DeployTown Config",
   "type": "object",
   "properties": {
     "name": {
@@ -11,10 +11,6 @@
       "type": "string",
       "enum": ["script", "http"],
       "description": "The type of the val"
-    },
-    "schedule": {
-      "type": "string",
-      "description": "Cron expression for scheduled vals"
     },
     "entry": {
       "type": "string",
