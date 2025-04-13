@@ -10,9 +10,4 @@ if (!valTownToken || valTownToken === "") {
   process.exit(1);
 }
 
-// if file does not exist, throw error
-if (!fs.existsSync(path.join(__dirname, "../valtown.json"))) {
-  core.setFailed("valtown.json does not exist");
-  process.exit(1);
-}
-
+console.log(process.env.GITHUB_WORKSPACE);
