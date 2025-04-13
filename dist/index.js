@@ -27561,13 +27561,22 @@ var __webpack_exports__ = {};
 var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+// import ValTown from "@valtown/sdk";
+const fs = __nccwpck_require__(9896);
+const path = __nccwpck_require__(6928);
 const core = __nccwpck_require__(7484);
 const valTownToken = core.getInput("VAL_TOWN_API_KEY");
 if (!valTownToken || valTownToken === "") {
     core.setFailed("VAL_TOWN_API_KEY is not set or is empty");
     process.exit(1);
 }
-console.log(process.env.GITHUB_WORKSPACE);
+// check if deploytown.json exists
+if (!fs.existsSync(path.join(process.env.GITHUB_WORKSPACE, "../deploytown.json"))) {
+    core.setFailed("deploytown.json does not exist");
+    process.exit(1);
+}
+const deploytown = JSON.parse(fs.readFileSync(path.join(process.env.GITHUB_WORKSPACE, "../deploytown.json"), "utf8"));
+console.log(deploytown);
 
 })();
 

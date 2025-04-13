@@ -1,0 +1,8 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["deploytown.json"],
+      "url": "./deploytown.schema.json"
+    }
+  ]
+}

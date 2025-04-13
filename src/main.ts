@@ -10,4 +10,15 @@ if (!valTownToken || valTownToken === "") {
   process.exit(1);
 }
 
-console.log(process.env.GITHUB_WORKSPACE);
+// check if deploytown.json exists
+if (!fs.existsSync(path.join(process.env.GITHUB_WORKSPACE, "../deploytown.json"))) {
+  core.setFailed("deploytown.json does not exist");
+  process.exit(1);
+}
+
+const deploytown = JSON.parse(
+  fs.readFileSync(path.join(process.env.GITHUB_WORKSPACE, "../deploytown.json"), "utf8")
+);
+
+console.log(deploytown);
+
