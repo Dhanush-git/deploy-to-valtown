@@ -75233,16 +75233,21 @@ function main() {
         const cacheKey = yield cache.restoreCache(['deploytown-cache.json'], 'deploytown');
         if (cacheKey) {
             const cacheData = JSON.parse(fs.readFileSync('deploytown-cache.json', "utf8"));
-            console.log(`Cache data ====> ${cacheData}`);
+            yield valTown.vals.versions.create(cacheData.id, {
+                code: fs.readFileSync(entryPath, "utf8"),
+                name: deploytownConfig.name,
+                type: deploytownConfig.type,
+            });
         }
-        const val = yield valTown.vals.create({
-            type: deploytownConfig.type,
-            name: deploytownConfig.name,
-            code: fs.readFileSync(entryPath, "utf8"),
-        });
-        fs.writeFileSync('deploytown-cache.json', JSON.stringify({ id: val.id }));
-        yield cache.saveCache(['deploytown-cache.json'], 'deploytown');
-        console.log(`Val created: ${val.id}`);
+        else {
+            const val = yield valTown.vals.create({
+                type: deploytownConfig.type,
+                name: deploytownConfig.name,
+                code: fs.readFileSync(entryPath, "utf8"),
+            });
+            fs.writeFileSync('deploytown-cache.json', JSON.stringify({ id: val.id }));
+            yield cache.saveCache(['deploytown-cache.json'], 'deploytown');
+        }
     });
 }
 main();
