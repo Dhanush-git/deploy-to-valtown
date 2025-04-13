@@ -1,6 +1,11 @@
 name: "Deploy to Valtown"
 description: "Deploy to Valtown"
 
+inputs:
+  VAL_TOWN_TOKEN:
+    description: "Valtown Token"
+    required: true
+
 runs:
   using: 'node20'
   main: 'dist/index.js'
