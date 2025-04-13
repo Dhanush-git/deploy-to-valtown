@@ -7,6 +7,9 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: ./
+      - name: Checkout to workspace
+        uses: actions/checkout@v4
+      - name: Deploy to Val Town 🚀
+        uses: ./
         with:
           VAL_TOWN_API_KEY: ${{ secrets.VAL_TOWN_API_KEY }}
