@@ -41,7 +41,7 @@ if (!fs.existsSync(entryPath)) {
 
 async function main() {
   const valTown = new ValTown({bearerToken: valTownToken});
-  console.log("CACHE ✉️",cache.restoreCache(['deploytown-cache.json'],'deploytown'))
+  console.log("CACHE ✉️",await cache.restoreCache(['deploytown-cache.json'],'deploytown'))
   const val = await valTown.vals.create({
     type: deploytown.type,
     name: deploytown.name,
