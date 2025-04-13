@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "npx ncc build src/index.ts",
+    "build": "npx ncc build src/main.ts",
     "dev": "npm run build && node --env-file=.env ./dist/index.js",
     "pre-commit": "npm run build"
   },
