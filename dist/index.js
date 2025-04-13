@@ -35900,6 +35900,66 @@ exports.NEVER = parseUtil_1.INVALID;
 
 /***/ }),
 
+/***/ 1730:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const sdk_1 = __nccwpck_require__(325);
+const fs = __nccwpck_require__(9896);
+const path = __nccwpck_require__(6928);
+const core = __nccwpck_require__(7484);
+const zod_1 = __nccwpck_require__(4809);
+const deploytownSchema = zod_1.z.object({
+    name: zod_1.z.string(),
+    type: zod_1.z.enum(["script", "http"]),
+    entry: zod_1.z.string(),
+});
+const valTownToken = core.getInput("VAL_TOWN_API_KEY");
+if (!valTownToken || valTownToken === "") {
+    core.setFailed("VAL_TOWN_API_KEY is not set or is empty");
+    process.exit(1);
+}
+// get the path to the deploytown.json file
+const deploytownPath = path.join(process.env.GITHUB_WORKSPACE, "deploytown.json");
+// check if deploytown.json exists
+if (!fs.existsSync(deploytownPath)) {
+    core.setFailed("deploytown.json does not exist");
+    process.exit(1);
+}
+const deploytown = JSON.parse(fs.readFileSync(deploytownPath, "utf8"));
+const entryPath = path.join(process.env.GITHUB_WORKSPACE, deploytown.entry);
+// check if entryPath exists
+if (!fs.existsSync(entryPath)) {
+    core.setFailed(`${deploytown.entry} does not exist`);
+    process.exit(1);
+}
+function main() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const valTown = new sdk_1.default({ bearerToken: valTownToken });
+        const val = yield valTown.vals.create({
+            type: deploytown.type,
+            name: deploytown.name,
+            code: fs.readFileSync(entryPath, "utf8"),
+        });
+        console.log(`Val created: ${val.id}`);
+    });
+}
+main();
+
+
+/***/ }),
+
 /***/ 2078:
 /***/ ((module) => {
 
@@ -41561,51 +41621,12 @@ module.exports = /*#__PURE__*/JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
-"use strict";
-var exports = __webpack_exports__;
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const sdk_1 = __nccwpck_require__(325);
-const fs = __nccwpck_require__(9896);
-const path = __nccwpck_require__(6928);
-const core = __nccwpck_require__(7484);
-const zod_1 = __nccwpck_require__(4809);
-const deploytownSchema = zod_1.z.object({
-    name: zod_1.z.string(),
-    type: zod_1.z.enum(["script", "http"]),
-    entry: zod_1.z.string(),
-});
-const valTownToken = core.getInput("VAL_TOWN_API_KEY");
-if (!valTownToken || valTownToken === "") {
-    core.setFailed("VAL_TOWN_API_KEY is not set or is empty");
-    process.exit(1);
-}
-// get the path to the deploytown.json file
-const deploytownPath = path.join(process.env.GITHUB_WORKSPACE, "deploytown.json");
-// check if deploytown.json exists
-if (!fs.existsSync(deploytownPath)) {
-    core.setFailed("deploytown.json does not exist");
-    process.exit(1);
-}
-const deploytown = JSON.parse(fs.readFileSync(deploytownPath, "utf8"));
-const entryPath = path.join(process.env.GITHUB_WORKSPACE, deploytown.entry);
-// check if entryPath exists
-if (!fs.existsSync(entryPath)) {
-    core.setFailed(`${deploytown.entry} does not exist`);
-    process.exit(1);
-}
-const valTown = new sdk_1.default({ bearerToken: valTownToken });
-valTown.vals.create({
-    type: deploytown.type,
-    name: deploytown.name,
-    code: fs.readFileSync(entryPath, "utf8"),
-});
-
-})();
-
-module.exports = __webpack_exports__;
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __nccwpck_require__(1730);
+/******/ 	module.exports = __webpack_exports__;
+/******/ 	
 /******/ })()
 ;

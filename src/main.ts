@@ -38,9 +38,15 @@ if (!fs.existsSync(entryPath)) {
   process.exit(1);
 }
 
-const valTown = new ValTown({bearerToken: valTownToken});
-valTown.vals.create({
-  type: deploytown.type,
-  name: deploytown.name,
-  code: fs.readFileSync(entryPath, "utf8"),
-})
+async function main() {
+  const valTown = new ValTown({bearerToken: valTownToken});
+  const val = await valTown.vals.create({
+    type: deploytown.type,
+    name: deploytown.name,
+    code: fs.readFileSync(entryPath, "utf8"),
+  })
+
+  console.log(`Val created: ${val.id}`);
+}
+
+main();
