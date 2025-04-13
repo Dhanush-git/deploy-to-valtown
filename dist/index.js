@@ -75230,7 +75230,7 @@ if (!fs.existsSync(entryPath)) {
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const valTown = new sdk_1.default({ bearerToken: valTownToken });
-        console.log("CACHE ✉️", cache.restoreCache(['deploytown-cache.json'], 'deploytown'));
+        console.log("CACHE ✉️", yield cache.restoreCache(['deploytown-cache.json'], 'deploytown'));
         const val = yield valTown.vals.create({
             type: deploytown.type,
             name: deploytown.name,
