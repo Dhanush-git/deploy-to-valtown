@@ -1,11 +1,5 @@
-import ValTown from "@valtown/sdk";
-import * as core from "@actions/core"
+// import ValTown from "@valtown/sdk";
+import * as fs from "fs";
+import * as path from "path";
 
-
-const valTownToken = core.getInput("valtown-token");
-
-// check if valTownToken is set
-if (!valTownToken) {
-  core.setFailed("valtown-token is not set");
-  process.exit(1);
-}
+console.log(__dirname);
