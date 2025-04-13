@@ -2,11 +2,12 @@ import ValTown from "@valtown/sdk";
 import * as fs from "fs";
 import * as path from "path";
 import * as core from "@actions/core";
+import * as cache from "@actions/cache";
 import { z } from "zod";
 
 const deploytownSchema = z.object({
   name: z.string(),
-  type: z.enum(["script", "http"]),
+  type: z.enum(["script", "http", "httpnext"]),
   entry: z.string(),
 });
 
@@ -40,11 +41,15 @@ if (!fs.existsSync(entryPath)) {
 
 async function main() {
   const valTown = new ValTown({bearerToken: valTownToken});
+  console.log("CACHE ✉️",cache.restoreCache(['deploytown-cache.json'],'deploytown'))
   const val = await valTown.vals.create({
     type: deploytown.type,
     name: deploytown.name,
     code: fs.readFileSync(entryPath, "utf8"),
   })
+
+  fs.writeFileSync('deploytown-cache.json', JSON.stringify({id: val.id}))
+  await cache.saveCache(['deploytown-cache.json'],'deploytown');
 
   console.log(`Val created: ${val.id}`);
 }
