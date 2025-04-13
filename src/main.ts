@@ -45,6 +45,8 @@ async function main() {
 
   if (cacheKey) {
     const cacheData = JSON.parse(fs.readFileSync('deploytown-cache.json', "utf8"));
+
+    console.log(JSON.stringify(cacheData, null, 2));
     
     await valTown.vals.versions.create(cacheData.id, {
       code: fs.readFileSync(entryPath, "utf8"),
