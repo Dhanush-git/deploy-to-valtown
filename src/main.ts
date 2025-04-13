@@ -10,14 +10,18 @@ if (!valTownToken || valTownToken === "") {
   process.exit(1);
 }
 
+const deploytownPath = path.join(process.env.GITHUB_WORKSPACE, "deploytown.json");
+
+console.log(deploytownPath);
+
 // check if deploytown.json exists
-if (!fs.existsSync(path.join(process.env.GITHUB_WORKSPACE, "../deploytown.json"))) {
+if (!fs.existsSync(deploytownPath)) {
   core.setFailed("deploytown.json does not exist");
   process.exit(1);
 }
 
 const deploytown = JSON.parse(
-  fs.readFileSync(path.join(process.env.GITHUB_WORKSPACE, "../deploytown.json"), "utf8")
+  fs.readFileSync(deploytownPath, "utf8")
 );
 
 console.log(deploytown);
