@@ -12,6 +12,11 @@
       "enum": ["script", "http"],
       "description": "The type of the val"
     },
+    "privacy": {
+      "type": "string",
+      "enum": ["public", "private", "unlisted"],
+      "description": "The privacy of the val"
+    },
     "entry": {
       "type": "string",
       "description": "Entry point file path"

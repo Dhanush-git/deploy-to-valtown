@@ -9,6 +9,7 @@ const deploytownSchema = z.object({
   name: z.string(),
   type: z.enum(["script", "http", "httpnext"]),
   entry: z.string(),
+  privacy: z.enum(["public", "private", "unlisted"]),
 });
 
 const valTownToken = core.getInput("VAL_TOWN_API_KEY");
@@ -51,6 +52,7 @@ async function main() {
     await valTown.vals.versions.create(cacheData.id, {
       code: fs.readFileSync(entryPath, "utf8"),
       name: deploytownConfig.name,
+      privacy: deploytownConfig.privacy,
       type: deploytownConfig.type,
     })
   } 
