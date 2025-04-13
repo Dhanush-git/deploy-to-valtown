@@ -27570,7 +27570,6 @@ if (!valTownToken || valTownToken === "") {
     core.setFailed("VAL_TOWN_API_KEY is not set or is empty");
     process.exit(1);
 }
-const vs = fs.readFileSync(path.join(__dirname, "../valtown.json"), "utf8");
 // if file does not exist, throw error
 if (!fs.existsSync(path.join(__dirname, "../valtown.json"))) {
     core.setFailed("valtown.json does not exist");
