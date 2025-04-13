@@ -19,32 +19,38 @@ if (!valTownToken || valTownToken === "") {
 }
 
 // get the path to the deploytown.json file
-const deploytownPath = path.join(process.env.GITHUB_WORKSPACE, "deploytown.json");
+const deploytownConfigPath = path.join(process.env.GITHUB_WORKSPACE, "deploytown.json");
 
 // check if deploytown.json exists
-if (!fs.existsSync(deploytownPath)) {
+if (!fs.existsSync(deploytownConfigPath)) {
   core.setFailed("deploytown.json does not exist");
   process.exit(1);
 }
 
-const deploytown: z.infer<typeof deploytownSchema> = JSON.parse(
-  fs.readFileSync(deploytownPath, "utf8")
+const deploytownConfig: z.infer<typeof deploytownSchema> = JSON.parse(
+  fs.readFileSync(deploytownConfigPath, "utf8")
 );
 
-const entryPath = path.join(process.env.GITHUB_WORKSPACE, deploytown.entry);
+const entryPath = path.join(process.env.GITHUB_WORKSPACE, deploytownConfig.entry);
 
 // check if entryPath exists
 if (!fs.existsSync(entryPath)) {
-  core.setFailed(`${deploytown.entry} does not exist`);
+  core.setFailed(`${deploytownConfig.entry} does not exist`);
   process.exit(1);
 }
 
 async function main() {
   const valTown = new ValTown({bearerToken: valTownToken});
-  console.log("CACHE ✉️",await cache.restoreCache(['deploytown-cache.json'],'deploytown'))
+  const cacheKey = await cache.restoreCache(['deploytown-cache.json'],'deploytown');
+
+  if (cacheKey) {
+    const cacheData = JSON.parse(fs.readFileSync('deploytown-cache.json', "utf8"));
+    console.log(`Cache data ====> ${cacheData}`);
+  }
+
   const val = await valTown.vals.create({
-    type: deploytown.type,
-    name: deploytown.name,
+    type: deploytownConfig.type,
+    name: deploytownConfig.name,
     code: fs.readFileSync(entryPath, "utf8"),
   })
 
