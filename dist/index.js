@@ -27565,9 +27565,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const fs = __nccwpck_require__(9896);
 const path = __nccwpck_require__(6928);
 const core = __nccwpck_require__(7484);
-const valTownToken = core.getInput("VAL_TOWN_TOKEN");
+const valTownToken = core.getInput("VAL_TOWN_API_KEY");
 if (!valTownToken || valTownToken === "") {
-    core.setFailed("VAL_TOWN_TOKEN is not set or is empty");
+    core.setFailed("VAL_TOWN_API_KEY is not set or is empty");
     process.exit(1);
 }
 const vs = fs.readFileSync(path.join(__dirname, "../valtown.json"), "utf8");

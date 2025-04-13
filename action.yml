@@ -2,7 +2,7 @@ name: "Deploy to Valtown"
 description: "Deploy to Valtown"
 
 inputs:
-  VAL_TOWN_TOKEN:
+  VAL_TOWN_API_KEY:
     description: "Valtown Token"
     required: true
 
