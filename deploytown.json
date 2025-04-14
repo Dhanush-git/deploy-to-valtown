@@ -1,5 +1,6 @@
 {
   "name": "test",
   "type": "script",
-  "entry": "demo/main.ts"
+  "entry": "demo/main.ts",
+  "version": "0.0.1"
 }

@@ -22,5 +22,5 @@
       "description": "Entry point file path"
     }
   },
-  "required": ["name", "type"]
+  "required": ["name", "type", "privacy", "entry"]
 }

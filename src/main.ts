@@ -5,11 +5,11 @@ import * as core from "@actions/core";
 import * as cache from "@actions/cache";
 import { z } from "zod";
 
-const deploytownSchema = z.object({
+const DeployTownConfigSchema = z.object({
   name: z.string(),
   type: z.enum(["script", "http", "httpnext"]),
   entry: z.string(),
-  privacy: z.enum(["public", "private", "unlisted"]),
+  privacy: z.enum(["public", "private", "unlisted"]).optional().default("public"),
 });
 
 const valTownToken = core.getInput("VAL_TOWN_API_KEY");
@@ -28,9 +28,9 @@ if (!fs.existsSync(deploytownConfigPath)) {
   process.exit(1);
 }
 
-const deploytownConfig: z.infer<typeof deploytownSchema> = JSON.parse(
+const deploytownConfig = DeployTownConfigSchema.parse(JSON.parse(
   fs.readFileSync(deploytownConfigPath, "utf8")
-);
+));
 
 const entryPath = path.join(process.env.GITHUB_WORKSPACE, deploytownConfig.entry);
 
